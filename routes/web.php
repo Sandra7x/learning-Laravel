@@ -3,6 +3,8 @@
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\Customer;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,4 +25,9 @@ Route::get('/hello', [PageController::class, 'index']);
 Route::get('/posts', function (){
     $posts = Post::get();
     dd($posts);
+});
+
+Route::get('/customers', function () {
+    $customers = Customer::get();
+    dd($customers);
 });
