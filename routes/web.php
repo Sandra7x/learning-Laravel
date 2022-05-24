@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/hello', [PageController::class, 'index']);
+
+Route::get('/posts', function (){
+    $posts = Post::get();
+    dd($posts);
+});
