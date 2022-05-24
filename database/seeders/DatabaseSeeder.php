@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use App\Models\Post;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,7 +21,13 @@ class DatabaseSeeder extends Seeder
         'body' => 'Body 1',
         'author_name' => 'Sandra',
       ]);
+      
+      $customer = Customer::create([
+        'name' => 'Sandra',
+        'lastname' => 'Rumpāne',
+      ]);
 
       $post->save();
+      $customer->save();
     }
 }
