@@ -16,18 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      $post = Post::create([
-        'title' => 'Title 1',
-        'body' => 'Body 1',
-        'author_name' => 'Sandra',
+      $this->call([
+        PostSeeder::class,
       ]);
-      
+
       $customer = Customer::create([
         'name' => 'Sandra',
         'lastname' => 'Rumpāne',
       ]);
 
-      $post->save();
+      
       $customer->save();
     }
 }
