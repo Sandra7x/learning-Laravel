@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Customer;
@@ -22,12 +23,21 @@ Route::get('/', function () {
 
 Route::get('/hello', [PageController::class, 'index']);
 
-Route::get('/posts', function (){
-    $posts = Post::get();
-    dd($posts);
+//localhost/posts
+Route::controller(PostController::class)->group(function (){
+    Route::prefix('posts')->group(function() {
+        Route::get('/', 'index')->name('posts.index');
+        Route::get('/create', 'create')->name('posts.create');
+        Route::post('/create', 'store')->name('posts.store');
+        Route::get('/show{post}', 'show')->name('posts.show');
+        Route::get('/edit{post}', 'edit')->name('posts.edit');
+        Route::post('/edit/{post}', 'update')->name('posts.update');
+        Route::get('/destroy/{post}', 'destroy')->name('posts.destroy');
+    });
 });
 
-Route::get('/customers', function () {
-    $customers = Customer::get();
-    dd($customers);
-});
+
+// Route::get('/customers', function () {
+//     $customers = Customer::get();
+//     dd($customers);
+// });
