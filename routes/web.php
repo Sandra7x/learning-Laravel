@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -41,3 +42,9 @@ Route::controller(PostController::class)->group(function (){
 //     $customers = Customer::get();
 //     dd($customers);
 // });
+
+Route::controller(CommentController::class)->group(function () {
+    Route::prefix('comments')->group(function () {
+        Route::post('/store', 'store')->name('comments.store');
+    });
+});
