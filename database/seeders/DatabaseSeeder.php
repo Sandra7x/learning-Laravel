@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
       $customer = Customer::create([
         'name' => 'Sandra',
         'lastname' => 'Rumpāne',
+        'city' => '',
       ]);
 
       
