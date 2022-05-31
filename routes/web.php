@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Customer;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,3 +66,9 @@ Route::controller(CommentController::class)->group(function () {
         Route::post('/store', 'store')->name('comments.store');
     });
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

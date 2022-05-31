@@ -1,4 +1,8 @@
-<a href="{{ route('posts.create') }}">Create</a>
+@extends('dashboard')
+
+@section('content')
+<div class="mx-12 border-solid border-4 rounded-md border-red-700">
+<a href="{{ route('posts.create') }}" class="text-red-400">Create</a>
 <table>
     <thead>
         <tr>
@@ -25,3 +29,5 @@
         @endforeach
     </tbody>
 </table>
+</div>
+@endsection
