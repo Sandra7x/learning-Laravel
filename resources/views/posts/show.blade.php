@@ -1,6 +1,3 @@
-this is show
-<br>
-
 {{ $post->title }};
 <br>
 {{ $post->body }};

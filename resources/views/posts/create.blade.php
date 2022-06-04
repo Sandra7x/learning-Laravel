@@ -1,4 +1,4 @@
-<h1>Create Post</h1>
+<h1>{{ __('namings.posts.create_post') }}</h1>
  
 @if ($errors->any())
     <div class="alert alert-danger">
