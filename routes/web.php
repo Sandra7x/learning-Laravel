@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Customer;
@@ -22,25 +23,36 @@ use App\Models\Customer;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome')->middleware(['hasLocale']);
 
 Route::get('/hello', [PageController::class, 'index']);
 
-                                                //localhost/posts
 
-Route::controller(PostController::class)->group(function (){
-    Route::prefix('posts')->group(function() {
-        Route::get('/', 'index')->name('posts.index');
-        Route::get('/create', 'create')->name('posts.create');
-        Route::post('/create', 'store')->name('posts.store');
-        Route::get('/show{post}', 'show')->name('posts.show');
-        Route::get('/edit{post}', 'edit')->name('posts.edit');
-        Route::post('/edit/{post}', 'update')->name('posts.update');
-        Route::get('/destroy/{post}', 'destroy')->name('posts.destroy');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+                                                //localhost/posts
+                                                //localhost/admin/posts
+
+Route::middleware([IsAdmin::class])->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::controller(PostController::class)->group(function (){
+            Route::prefix('posts')->group(function() {
+                Route::get('/', 'index')->name('posts.index');
+                Route::get('/create', 'create')->name('posts.create');
+                Route::post('/create', 'store')->name('posts.store');
+                Route::get('/show{post}', 'show')->name('posts.show');
+                Route::get('/edit{post}', 'edit')->name('posts.edit');
+                Route::post('/edit/{post}', 'update')->name('posts.update');
+                Route::get('/destroy/{post}', 'destroy')->name('posts.destroy');
+            });
+        });
     });
 });
 
                                                 //localhost/customers
+                                                //localhost/admin/customers
 
 // Route::get('/customers', function () {
 //     $customers = Customer::get();
@@ -48,7 +60,8 @@ Route::controller(PostController::class)->group(function (){
 // });
 
 // Route::get('/customers', [CustomerController::class, 'index']);
-
+Route::middleware([IsAdmin::class])->group(function () {
+    Route::prefix('admin')->group(function () {
 Route::controller(CustomerController::class)->group(function (){
     Route::prefix('customers')->group(function() {
         Route::get('/', 'index')->name('customers.index');
@@ -60,15 +73,13 @@ Route::controller(CustomerController::class)->group(function (){
         Route::get('/destroy/{customer}', 'destroy')->name('customers.destroy');
     });
 });
+});
+});
 
 Route::controller(CommentController::class)->group(function () {
     Route::prefix('comments')->group(function () {
         Route::post('/store', 'store')->name('comments.store');
     });
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
