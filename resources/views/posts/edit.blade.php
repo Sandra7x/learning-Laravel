@@ -13,7 +13,7 @@ this is edit
 
 <form action={{ route('posts.update', ['post' => $post->id]) }} method="POST">
     @csrf
-    <input type="hidden" name="id" value="{{ $post-> id}}">
+    <input type="hidden" name="id" value="{{ $post-> id }}">
     <div>
         Title: <input type="text" name="title" value="{{ $post->title }}">
     </div>
@@ -21,7 +21,7 @@ this is edit
         Body: <textarea name="body">{{ $post->body }}</textarea>
     </div>
     <div>
-        Author: <input type="text" name="author_name" value="{{ $post->author_name}}">
+        Author: <input type="text" name="author_name" value="{{ $post->author_name }}">
     </div>
 
         <input type="submit">

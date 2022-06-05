@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CustomerCreateRequest;
+use App\Http\Requests\CustomerUpdateRequest;
+
 use App\Models\Customer;
 
 class CustomerController extends Controller
@@ -20,14 +22,20 @@ class CustomerController extends Controller
           return view('customers.create');
      }
 
-     public function store(Request $request)
+     public function store(CustomerCreateRequest $request)
      {
-          $requestData = $request->all();
+          // $validatedData = $request ->validate([
+          //      'name' =>  'required',
+          //      'lastname' => 'required|unique:customers|max:25',
+          //      'city' => 'nullable'
+          // ]);
+
+          $validatedData = $request ->validated();
 
           $customer = Customer::create([
-               'name' => $requestData['name'],
-               'lastname' => $requestData['lastname'],
-               'city' => $requestData['city'],
+               'name' => $validatedData['name'],
+               'lastname' => $validatedData['lastname'],
+               'city' => $validatedData['city'],
           ]);
 
           $customer->save();
@@ -49,13 +57,20 @@ class CustomerController extends Controller
           ]);
      }
 
-     public function update(Request $request, Customer $customer)
+     public function update(CustomerUpdateRequest $request, Customer $customer)
      {
-          $requestData = $request->all();
+          $validatedData = $request ->validated();
+          // $validatedData = $request ->validate([
+          //      'name' =>  'required',
+          //      'lastname' => 'required',
+          //      'city' => 'nullable'
+          // ]);
 
-          $customer->name = $requestData['name'];
-          $customer->lastname = $requestData['lastname'];
-          $customer->city = $requestData['city'];
+          // $requestData = $request->all();
+
+          $customer->name = $validatedData['name'];
+          $customer->lastname = $validatedData['lastname'];
+          $customer->city = $validatedData['city'];
 
           $customer->save();
 

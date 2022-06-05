@@ -4,13 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostCreateRequest extends FormRequest
+class CustomerCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-    //  *
+     *
     //  * @return bool
-    //  */
+     */
     // public function authorize()
     // {
     //     return false;
@@ -24,9 +24,9 @@ class PostCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|unique:posts|max:255',
-            'body' => 'required',
-            'author_name' => 'nullable',
+            'name' =>  'required',
+            'lastname' => 'required|unique:customers|max:255',
+            'city' => 'nullable',
         ];
     }
 }

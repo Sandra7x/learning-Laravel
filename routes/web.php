@@ -60,26 +60,26 @@ Route::middleware([IsAdmin::class])->group(function () {
 // });
 
 // Route::get('/customers', [CustomerController::class, 'index']);
-Route::middleware([IsAdmin::class])->group(function () {
-    Route::prefix('admin')->group(function () {
-Route::controller(CustomerController::class)->group(function (){
-    Route::prefix('customers')->group(function() {
-        Route::get('/', 'index')->name('customers.index');
-        Route::get('/create', 'create')->name('customers.create');
-        Route::post('/create', 'store')->name('customers.store');
-        Route::get('/show{customer}', 'show')->name('customers.show');
-        Route::get('/edit{customer}', 'edit')->name('customers.edit');
-        Route::post('/edit/{customer}', 'update')->name('customers.update');
-        Route::get('/destroy/{customer}', 'destroy')->name('customers.destroy');
+        Route::middleware([IsAdmin::class])->group(function () {
+            Route::prefix('admin')->group(function () {
+        Route::controller(CustomerController::class)->group(function (){
+            Route::prefix('customers')->group(function() {
+                Route::get('/', 'index')->name('customers.index');
+                Route::get('/create', 'create')->name('customers.create');
+                Route::post('/create', 'store')->name('customers.store');
+                Route::get('/show{customer}', 'show')->name('customers.show');
+                Route::get('/edit{customer}', 'edit')->name('customers.edit');
+                Route::post('/edit/{customer}', 'update')->name('customers.update');
+                Route::get('/destroy/{customer}', 'destroy')->name('customers.destroy');
+            });
+        });
     });
-});
-});
 });
 
 Route::controller(CommentController::class)->group(function () {
-    Route::prefix('comments')->group(function () {
-        Route::post('/store', 'store')->name('comments.store');
-    });
+        Route::prefix('comments')->group(function () {
+            Route::post('/store', 'store')->name('comments.store');
+        });
 });
 
 require __DIR__.'/auth.php';
